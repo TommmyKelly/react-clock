@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+
+import './App.css';
+import Clock from './Clock';
+
+class App extends Component {
+
+  
+
+   state = {
+   
+    secondRatio: 0,
+    minuteRatio: 0,
+    hourRatio: 0
+  }
+  
+ 
+
+ componentDidMount () {
+   setInterval(() => {
+     this.setClock()
+   }, 1000);
+ }
+
+   setClock = () =>{
+    
+      const currentDate = new Date;
+       let secondRatio = currentDate.getSeconds() / 60;
+       let minuteRatio = (secondRatio + currentDate.getMinutes()) / 60;
+       let hourRatio = (minuteRatio + currentDate.getHours()) / 12;
+      this.setState({secondRatio: secondRatio = currentDate.getSeconds() / 60}) 
+       this.setState({minuteRatio: minuteRatio = (secondRatio + currentDate.getMinutes()) / 60}) 
+       this.setState({hourRatio:hourRatio = (minuteRatio + currentDate.getHours()) / 12});
+       
+      
+   }    
+  
+
+  render(){
+    const {secondRatio, minuteRatio, hourRatio} = this.state
+    return (
+      <Clock secondRatio={secondRatio} minuteRatio={minuteRatio} hourRatio={hourRatio}/>
+    );
+  }
+ 
 }
+
+
 
 export default App;
